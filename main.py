@@ -25,18 +25,38 @@ class Agent:
         self.position = position
         self.goal = goal
 
+
+
     def move(self):
-        if len(self.best_path) != 0:
-            mutex.acquire()
-            if matrix[best_path[0][0]][best_path[0][1]] == '0':
-                matrix[agent.position[0]][agent.position[1]] = '0'
-                matrix[best_path[0][0]][best_path[0][1]] = self.name
-            else:
-                print("ne peut pas bouger")
+        mutex.acquire()
+        path = findSP()
+        if checkPath(path):
+            matrix[self.position[0]][self.position[1]] = '0'
+            matrix[path[0][0]][path[0][1]] = self.name
+            print(matrix)
+        else:
+            print("ne peut pas bouger")
             print(matrix)
             mutex.release()
         else:
             print(self.name, "ne bouge pas")
+
+
+    def checkPath(self, path):
+        i = 0
+        for case in path:
+            if matrix[case[0]][case[1]] != '0':
+                i = +1
+        if i > 0:
+            return False
+        else:
+            return True
+
+
+    def findSP(self):
+        path = [[1, 2], [1, 4], [4, 4]]  # test true
+        # path = [[1, 2], [1, 3], [4, 4]] #test false
+        return path
 
 def agent_schedule(agent):
     while True:
