@@ -16,11 +16,42 @@ def add_agent(agent):
         print("Erreur ajout agent : agent deja present")
 
 class Agent:
+    position: tuple
+    goal: tuple
+    name: str
 
     def __init__(self, name, position, goal):
         self.name = name
         self.position = position
         self.goal = goal
+
+    def checkPath(self, path):
+        i=0
+        for case in path:
+            if matrix[case[0]][case[1]] != '0':
+                i = +1
+        if i > 0:
+            return False
+        else:
+            return True
+
+    def findSP(self):
+        path = [[1, 2], [1, 4], [4, 4]] #test true
+        #path = [[1, 2], [1, 3], [4, 4]] #test false
+        return path
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def main():
@@ -33,6 +64,9 @@ def main():
         add_agent(agent)
 
     print(matrix)
+    print(a.checkPath(a.findSP()))
+
+
 
 
 if __name__ == "__main__":
