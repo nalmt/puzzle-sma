@@ -29,17 +29,16 @@ class Agent:
 
     def move(self):
         mutex.acquire()
-        path = findSP()
-        if checkPath(path):
+        path = self.findSP()
+        if self.checkPath(path):
             matrix[self.position[0]][self.position[1]] = '0'
             matrix[path[0][0]][path[0][1]] = self.name
-            print(matrix)
+
         else:
             print("ne peut pas bouger")
-            print(matrix)
-            mutex.release()
-        else:
-            print(self.name, "ne bouge pas")
+        print(matrix)
+        mutex.release()
+
 
 
     def checkPath(self, path):
